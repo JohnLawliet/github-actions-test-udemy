@@ -1,4 +1,4 @@
-name: first-workflow
+name: Frst workflow
 on: workflow_dispatch
 jobs:
   first-job:  #this represents the name of the job. Note that every job must have a runner running on an OS and steps
