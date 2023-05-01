@@ -1,0 +1,10 @@
+name: first-workflow
+on: workflow_dispatch
+jobs:
+  first-job:  #this represents the name of the job. Note that every job must have a runner running on an OS and steps
+    runs-on: ubuntu-latest
+    steps:
+      - name: first-step
+        run: echo "do kathak"
+      - name: second-step
+        run: echo "attack KATHAK"
