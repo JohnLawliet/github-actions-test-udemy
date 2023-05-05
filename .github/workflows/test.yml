@@ -1,0 +1,9 @@
+#define action files like below
+#workflow (trigger + name) -> jobs (name + what each job runs on + steps) -> steps (name of step + action)
+name: testing push workflow
+on: push
+jobs:
+  test: #this is job name
+    - runs-on: ubuntu-latest
+      steps:
+        - name: Get code
