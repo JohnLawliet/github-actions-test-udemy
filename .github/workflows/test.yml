@@ -14,5 +14,5 @@ jobs:
             node-version: 18
         - name: install dependencies
           run: npm ci #ci instead of install to install all dependencies in package-lock.json for more safety
-        - name: run test:
+        - name: run test
           run: npm test
