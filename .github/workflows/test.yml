@@ -4,15 +4,15 @@ name: testing push workflow
 on: push
 jobs:
   test: #this is job name
-    runs-on: ubuntu-latest  #Note that OS provided by github here also comes with pre installed software like nodejs, python, etc
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: install nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: install dependencies
-        run: npm ci #ci instead of install to install all dependencies in package-lock.json for more safety
-      - name: run test
-        run: npm test
+    - runs-on: ubuntu-latest  #Note that OS provided by github here also comes with pre installed software like nodejs, python, etc
+      steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: install nodejs
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: install dependencies
+          run: npm ci #ci instead of install to install all dependencies in package-lock.json for more safety
+        - name: run test
+          run: npm test
