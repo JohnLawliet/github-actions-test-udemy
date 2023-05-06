@@ -1,7 +1,7 @@
 #define action files like below
 #workflow (trigger + name) -> jobs (name + what each job runs on + steps) -> steps (name of step + action)
 name: deploying sample workflow
-on: push
+on: [push, workflow_dispatch]
 jobs:
   test: #this is job name
     runs-on: ubuntu-latest  #Note that OS provided by github here also comes with pre installed software like nodejs, python, etc
