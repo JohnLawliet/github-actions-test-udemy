@@ -9,14 +9,14 @@ html {
 body {
   background-color: black;
   color: #292d2d;
-  text-align: center;
+  text-align: left;
 }
 
 #logo-img {
   width: 7rem;
   height: 7rem;
   background-color: #3f3828;
-  border-radius: 50%;
+  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
