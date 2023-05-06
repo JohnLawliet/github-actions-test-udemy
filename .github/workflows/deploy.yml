@@ -1,8 +1,16 @@
 name: lint, test and deploy worfkflow
 on: push
 jobs:
+  preSetup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: action/checkout@v3
+      - name: install dependencies
+        uses: npm ci
   lintTest:
     runs-on: ubuntu-latest
+    needs: preSetup
     steps:
       - name: lint the code
         run: npm run lint
