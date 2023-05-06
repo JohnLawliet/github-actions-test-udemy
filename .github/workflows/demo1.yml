@@ -1,5 +1,9 @@
 name: Events Demo 1
-on: ...
+on: 
+  pull_request:   #pull_request, workflow_dispatch are events. Event may or may not have activity types
+    types:        #activity types. Can be written as so or like types: [opened, closed, etc]. opened, etc are activities for the event. Check docs
+      - opened        #NOTE: by default, pull_request triggers workflow for opened, synchronize or reopened unless specified otherwise
+  workflow_dispatch:  #NOTE: EVEN IF EVENT DOESN"T HAVE ACTIVIY TYPE, IT HAS TO END WITH :
 jobs:
   deploy:
     runs-on: ubuntu-latest
