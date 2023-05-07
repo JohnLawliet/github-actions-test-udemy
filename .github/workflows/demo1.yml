@@ -4,6 +4,14 @@ on:
     types:        #activity types. Can be written as so or like types: [opened, closed, etc]. opened, etc are activities for the event. Check docs
       - opened        #NOTE: by default, pull_request triggers workflow for opened, synchronize or reopened unless specified otherwise
   workflow_dispatch:  #NOTE: EVEN IF EVENT DOESN"T HAVE ACTIVIY TYPE, IT HAS TO END WITH :
+  push:
+    branches:   #trigger workflow when below branches are pushed to
+      - main    #only cover main branch
+      - dev-*   #dev-shilu, dev-chintu. Note that this * means till / is encountered
+      - feat/** #feat/new1, #feat/new/button
+      #developer -> this won't be covered 
+    paths-ignore:           #run a workflow if above push in any of the above branches occured BUT only if there was no change in .github workflows folder
+      - .github/workflow/*
 jobs:
   deploy:
     runs-on: ubuntu-latest
