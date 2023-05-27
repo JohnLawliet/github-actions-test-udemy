@@ -3,9 +3,14 @@ on:
   push:
     branches:
       - 05Artifacts
+env:
+  MONGODB_NAME: mongoman
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_USERNAME: chintu
+      MONGODB_PASS: pass
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -24,6 +29,10 @@ jobs:
         run: npm run lint
       - name: Test code
         run: npm run test
+      - name: echo environement variable
+        run: |
+          echo "mongodbname : ${{ env.MONGODB_NAME }}"
+          echo "mongodbusername : $MONGODB_USERNAME"
   build:
     needs: test
     runs-on: ubuntu-latest
