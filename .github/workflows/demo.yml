@@ -1,0 +1,54 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - 05Artifacts
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint code
+        run: npm run lint
+      - name: Test code
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:    #outputs are different from artifact. Output represent simple text or textual content that might be used by succeeding jobs
+      script-file: ${{ steps.publish.outputs.script-file }}   #name of the file is required. It can be fetched from the steps context. publish and script-file are only identifiers or names given
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website
+        run: npm run build
+      - name: Publish website
+        id: publish #needed to give a name for accessing via steps variable. script-file in run command represents name of the file to be searched in outputs
+        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> '$GITHUB_OUTPUT' ';'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+          # path: | #Note that package.jsoon is not required but sjown for demo purpose
+          #   dist
+          #   package.json
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: get build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+      - name: Output contents
+        run: ls   #only doing ls here to check if dist-files identifier artifact was downloaded or not. After download, the terminal would arleady be inside dist folder (built by vite)
+      - name: Output filename
+        run: echo "${{ needs.build.outputs.script-file }}""
+      - name: Deploy 
+        run: echo "Deploying..."
