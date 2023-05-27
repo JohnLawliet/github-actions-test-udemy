@@ -49,6 +49,6 @@ jobs:
       - name: Output contents
         run: ls   #only doing ls here to check if dist-files identifier artifact was downloaded or not. After download, the terminal would arleady be inside dist folder (built by vite)
       - name: Output filename
-        run: echo "${{ needs.build.outputs.script-file }}""
+        run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy 
         run: echo "Deploying..."
