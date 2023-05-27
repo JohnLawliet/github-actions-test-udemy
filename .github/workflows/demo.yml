@@ -11,6 +11,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci
+      #Github provides built in actions to cache for faster CI execution reducing CI time
+      #npm stores dependencies in .npm across jobs/workflows. key points to the path value and should have uniqueness
+      #Note that the cache step executes even after the job finishes to check if cache doesn't exist, then create a new key value in cache
+      #Github actions cache@v3 utilizes a central cache
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Lint code
         run: npm run lint
       - name: Test code
@@ -23,6 +32,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build website
