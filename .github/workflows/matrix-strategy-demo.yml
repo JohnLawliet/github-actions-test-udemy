@@ -1,0 +1,21 @@
+name: Matrix strategy demo
+on: push
+jobs:
+  build:
+    continue-on-error: true
+    strategy:
+      matrix:
+        node-version: [12,14,16]
+        operating-system: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.operating-system }} 
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: Install nodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.operating-system }} 
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build 
