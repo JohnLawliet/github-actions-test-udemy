@@ -1,0 +1,21 @@
+name: reusable deploy workflow
+on:
+  workflow_call:
+    inputs: #this is compulsory when the workflow_call needs input from parent workflow
+      artifact-name: #this is arbitrary
+        description: name of the deployable file
+        required: false
+        default: dist
+        type: string
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Getting code
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - name: list files
+        run: ls
+      - name: deploy to server
+        run: echo "Deploying..."
