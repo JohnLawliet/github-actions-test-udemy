@@ -68,7 +68,9 @@ jobs:
           path: dist
   deploy:
     needs: build
-    uses: ./github/workflows/reusable-deploy.yml
+    uses: ././github/workflows/reusable-deploy.yml
+    with:
+      artifact-name: dist-files
   report:
     needs: ['lint', 'deploy']
     if: failure()
