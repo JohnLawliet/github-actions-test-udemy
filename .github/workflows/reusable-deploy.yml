@@ -30,4 +30,4 @@ jobs:
         run: echo "Deploying..."
       - name: Show output
         id: set-result
-        run: echo "script-output=success" >> $GITHUB_OUTPUT
+        run: echo "script-output=success" >> "$GITHUB_OUTPUT"
