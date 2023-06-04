@@ -16,11 +16,17 @@ jobs:
       #env:
         #my-env: something
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_ADDRESS }}
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_CONNECTION_PROTOCOL: mongodb #replacing this from mongodb+srv (used in prod) to mongodb as given in mongo docker docs
+      MONGODB_CLUSTER_ADDRESS: mongo-test #Note that this can be used because the job is itself running in a docker container mongo-test is name of the service
+      MONGODB_USERNAME: root  #in prod, use env variable $ {{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: example   #in prod, use env variable $ {{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
+    services:
+      mongo-test:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: example
     steps:
       - name: Get Code
         uses: actions/checkout@v3
