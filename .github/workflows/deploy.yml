@@ -11,6 +11,8 @@ jobs:
         uses: actions/checkout@v3
       - name: cache and get dependency
         uses: ./.github/actions/cached-deps
+        with:
+          caching: 'false' #added to test if passing false to caching variable needed by the cistom action works
       - name: Lint code
         run: npm run lint
   test:

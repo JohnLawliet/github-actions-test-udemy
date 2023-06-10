@@ -1,15 +1,21 @@
 name: 'install and cache dependencies'
 description: 'This action installs dependencies via npm and caches them.'
+inputs:
+  caching:
+    description: 'optional parameter to switch off caching'
+    required: false
+    default: 'true'
 runs:
   using: 'composite'
   steps:
     - name: Cache dependencies
       id: cache
+      if: inputs.caching == 'true'  #if caching is false then skip this step
       uses: actions/cache@v3
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
       shell: bash
