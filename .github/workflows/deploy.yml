@@ -10,9 +10,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: cache and get dependency
+        id: cached-deps-step
         uses: ./.github/actions/cached-deps
         with:
           caching: 'false' #added to test if passing false to caching variable needed by the cistom action works
+      - name: show action output
+        run: echo "Cache used? ${{ steps.cached-deps-step.outputs.used-cache }}"
       - name: Lint code
         run: npm run lint
   test:
