@@ -17,7 +17,9 @@ const run = () => {
 
     //@actions/github can be used to retrieve github context object or Octokit for github features
 
-    core.notice("Hello from javascript main actions")
+    // 3. get website url
+    const websiteUrl = `http://${bucket}.s3-website-${bucketRegion}.amazonaws.com`
+    core.setOutput("website-url", websiteUrl) //this is equivalent to "cache='${{ inputs.caching }}'" >> $GITHUB_OUTPUT
 }
 
 run();

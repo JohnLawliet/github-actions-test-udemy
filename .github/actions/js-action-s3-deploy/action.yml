@@ -11,6 +11,10 @@ inputs:
   dist-folder:
    description: 'folder containing files to upload to s3 bucket'
    required: true
+outputs:
+  website-url:
+    description: 'Display the url of website post deployment.'
+    #Note that this doesn't require any value here as this would be dynamically generated from  main.js
 runs:
   using: 'node16'
   main: 'main.js'
