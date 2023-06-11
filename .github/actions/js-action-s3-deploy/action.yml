@@ -1,0 +1,5 @@
+name: 'action to deploy to s3'
+description: 'an example javascript action to deploy to s3'
+runs:
+  using: 'node16'
+  main: 'main.js'
